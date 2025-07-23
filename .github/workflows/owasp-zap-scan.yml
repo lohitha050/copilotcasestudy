@@ -1,8 +1,14 @@
 name: OWASP ZAP Integration with GitHub Actions
+
 on: 
   push:
     branches:
       - main
+
+permissions:
+  contents: read
+  issues: write  # Required if ZAP tries to create GitHub issues
+
 jobs:
   build:
     name: DAST scan using OWASP ZAP
@@ -12,6 +18,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: main
+
       - name: ZAP Scan
         uses: zaproxy/action-baseline@v0.14.0
         with:
